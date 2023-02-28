@@ -1,21 +1,28 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+const http = require('http')
+const express = require('express')
+const bodyParser = require('body-parser')
+const misRutas = require('./router/index');
+const path = require('path');
 
-var app = express();
-var port = 500;
 
-// Convierte una petición recibida (POST-GET...) a objeto JSON
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+const app = express()
+const { renderFile } = require('ejs')
 
-app.get('/', function(req, res){
-	res.status(200).send({
-		message: 'Escuchando el puerto 500'
-	});
-});
+app.set('view engine', 'ejs');
 
+app.use(express.static(__dirname + '/public'));
+app.engine('html',require('ejs').renderFile)
+
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(misRutas);
+
+app.use((req,res,next)=>{
+    res.status(404).sendFile(__dirname + '/public/error.html');
+})
+
+const port = 500
 app.listen(port,()=>{
-    console.log('Inciado el puerto 500');
+    console.log('Inciado el puerto 500')
 })
 
 
