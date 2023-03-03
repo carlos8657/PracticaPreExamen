@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/encabezado.html'); %>
+</head>
+<body>
+
+            <div class="form-group">
+                <form action="/Carlos" method="post">
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Num Boleto</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="numBoleto" name="numBoleto"><br>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Destino</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="destino" name="destino"><br>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Nombre del Cliente</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nombreCliente"><br>
+                        </div>  
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Años Cumplidos</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="edad" name="edad"><br>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Tipo de Viaje</label>
+                        <div class="col-sm-10">
+                            <select id="tipo" name="tipo" class="form-control">
+                                <option value="1">Sencillo</option>
+                                <option value="2">Doble</option>
+                              </select><br>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Precio</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="precioBoleto" name="precioBoleto"  required="true">
+                        </div>     
+                    </div>
+                    
+
+                    <br><hr>
+                    <center>
+                        <button type="submit" class="btn btn-outline-success">Calcular</button>
+                        <button type="reset" class="btn btn-outline-success">Limpiar</button>
+                    </center>
+                    <br><br>
+                    
+                    <%
+                        
+                    let subtotal = 0;
+                    let impuesto = 0;
+                    let descuento = 0;
+                    let total = 0;
+
+                    subtotal = precioBoleto;
+                    impuesto = subtotal * .16;
+                    total = subtotal * 1.16;
+                    
+
+                    if(tipoBoleto == 2){
+                        subtotal = subtotal * 1.8;
+                        impuesto = subtotal * 0.16;
+                    }
+
+                    if(edad >= 60){
+                        %>
+                        <%descuento = (parseInt(subtotal)  + impuesto)  / 2
+                          total = (parseInt(subtotal) + impuesto) - descuento;
+                        %>
+                        
+                        <%
+                    }
+                    
+                    
+
+                    %>
+                </form>
+                
+                
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">Subtotal</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="subtotal" value="<%=subtotal%>" disabled><br>
+                    </div>  
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">Impuesto</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="impuesto" value="<%=impuesto%>" disabled><br>
+                    </div>  
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">Descuento</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="descuento" value="<%=descuento%>" disabled><br>
+                    </div>  
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">Total</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="impuesto" value="<%=total%>" disabled><br>
+                    </div>  
+                </div>
+            </div>  
+
+    <footer>
+        <%- include('partials/piePagina.html'); %>
+    </footer>
+
+</body>
+</html>
